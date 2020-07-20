@@ -17,6 +17,16 @@ class Solution:
         for x in range((len(s) // 2)):
             stringmatrix[x] = [0] * numRows
         
+        char = 0
+        while char < len(s):
+            for x in range(len(stringmatrix)):
+                for y in range(len(stringmatrix[x])):
+                    if char < len(stringmatrix[x]):
+                        stringmatrix[x][y] = s[char]
+                        char += 1
+                        continue
+
+
         print(stringmatrix)
 
 

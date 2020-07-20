@@ -12,22 +12,22 @@ string convert(string s, int numRows);'''
 
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        #create a matrix of numrows
-        stringmatrix = [0] * (len(s) // 2)
-        for x in range((len(s) // 2)):
-            stringmatrix[x] = [0] * numRows
-        
-        char = 0
-        while char < len(s):
-            for x in range(len(stringmatrix)):
-                for y in range(len(stringmatrix[x])):
-                    if char < len(stringmatrix[x]):
-                        stringmatrix[x][y] = s[char]
-                        char += 1
-                        continue
-
-
-        print(stringmatrix)
+        #if number of rows is 1 or greater than string length
+        if numRows == 1 or numRows > len(s):
+            return s
+        #create a string of numrows
+        step = 0
+        i = 0
+        stringline = ['' for rows in range(numRows)]
+        #zigzag
+        for char in s:
+            stringline[i] += char
+            if i == 0:
+                step = 1
+            if i == numRows - 1:
+                step = -1
+            i += step
+        return ''.join(stringline)
 
 
 Solution().convert('PAYPALISHIRING', 4)

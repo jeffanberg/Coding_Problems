@@ -26,9 +26,8 @@ def findTriangleNum():
     i = 1
     natural = 2
     while len(factors(i)) < 501:
-        print(len(factors(i)))
         i = i + natural
-        natural =+ 1
+        natural = natural + 1
     else:
         return i
 

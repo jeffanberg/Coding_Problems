@@ -6,11 +6,9 @@ How many such routes are there through a 20×20 grid?
 '''
 
 def numOfPaths(gridSize):
-    i = 1
     c = 1
-    while i <= gridSize:
+    for i in range(1, gridSize + 1):
         c = c * (gridSize + i) / i
-        i += 1
     return c
 
 

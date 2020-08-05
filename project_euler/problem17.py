@@ -13,31 +13,19 @@ The use of "and" when writing out numbers is in compliance with British usage.''
 
 
 def ones(num):
-    if num == 0:
-        return 0
-    if num in [1, 2, 6]:
-        return 3
-    if num in [4, 5, 9]:
-        return 4
-    if num in [3, 7, 8]:
-        return 5
+    if num in [1, 2, 6]: return 3
+    elif num in [4, 5, 9]: return 4
+    elif num in [3, 7, 8]: return 5
+    else: return 0
 
 def tens(num):
-    if num == 0:
-        return 0
-    if num == 10:
-        return 3
-    if num in [4, 5, 6]:
-        return 5
-    if num in [2, 3, 8, 9, 11, 12]:
-        return 6
-    if num in [7, 15, 16]:
-        return 7
-    if num in [13, 14, 18, 19]:
-        return 8
-    if num == 17:
-        return 9
-
+    if num == 10: return 3
+    elif num in [4, 5, 6]: return 5
+    elif num in [2, 3, 8, 9, 11, 12]: return 6
+    elif num in [7, 15, 16]: return 7
+    elif num in [13, 14, 18, 19]: return 8
+    elif num == 17: return 9
+    else: return 0
 
 def hundreds(num):
     return ones(num) + 7

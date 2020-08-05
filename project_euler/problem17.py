@@ -11,35 +11,33 @@ For example, 342 (three hundred and forty-two) contains 23 letters
 and 115 (one hundred and fifteen) contains 20 letters. 
 The use of "and" when writing out numbers is in compliance with British usage.'''
 
-#one two three four five six seven eight nine ten
-#eleven6 twelve6 thirteen8 fourteen8 fifteen7 sixteen7 seventeen9 eighteen8 nineteen8 twenty
-#twenty thirty forty fifty sixty seventy eighty ninety
 
 def ones(num):
-    if num == 1 or num == 2 or num == 6:
-        return 3
-    if num == 4 or num == 5 or num == 9:
-        return 4
-    if num == 3 or num == 7 or num == 8:
-        return 5
     if num == 0:
         return 0
+    if num in [1, 2, 6]:
+        return 3
+    if num in [4, 5, 9]:
+        return 4
+    if num in [3, 7, 8]:
+        return 5
 
 def tens(num):
     if num == 0:
         return 0
-    if num == 2 or num == 3 or num == 8 or num == 9 or num == 11 or num == 12:
-        return 6
-    if num == 4 or num == 5 or num == 6:
+    if num == 10:
+        return 3
+    if num in [4, 5, 6]:
         return 5
-    if num == 7 or num == 15 or num == 16:
+    if num in [2, 3, 8, 9, 11, 12]:
+        return 6
+    if num in [7, 15, 16]:
         return 7
-    if num == 13 or num == 14 or num == 18 or num == 19:
+    if num in [13, 14, 18, 19]:
         return 8
     if num == 17:
         return 9
-    if num == 10:
-        return 3
+
 
 def hundreds(num):
     return ones(num) + 7

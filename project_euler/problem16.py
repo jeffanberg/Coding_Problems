@@ -6,7 +6,7 @@ What is the sum of the digits of the number 2^1000?
 largenumstring = str(pow(2, 1000))
 largenumsum = 0
 
-for char in range(len(largenumstring)):
-    largenumsum += int(largenumstring[char])
+for num in largenumstring:
+    largenumsum += int(num)
 
 print (largenumsum)

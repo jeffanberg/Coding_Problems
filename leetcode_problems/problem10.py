@@ -12,30 +12,73 @@ p could be empty and contains only lowercase letters a-z, and characters like . 
 
 
 def isMatch(s: str, p: str) -> bool:
-    stillMatches = True
-    s_index = 0
-    for char in range(len(p)):
-        if char < len(p) - 1:
-            if p[char + 1] == "*":
-                continue
+    rev_p = p[::-1]
+    rev_s = s[::-1]
 
-        if p[char] == ".":
-            s_index += 1
-            continue
-        elif p[char] == "*":
-            if s[s_index] == p[char - 1]:
-                s_index += 1
-                continue
+    while len(rev_p) > 0:
+        if rev_p[:1] == "*":
+            if rev_p[1:2] == ".":
+                return True
+                break
+            while rev_p[1:2] == rev_s[:1]:
+                rev_s = rev_s[1:]
+            rev_p = rev_p[2:]
+        elif rev_p[:1] == ".":
+            rev_s = rev_s[1:]
+            rev_p = rev_p[1:]
         else:
-            if s[s_index] != p[char]:
-                stillMatches = False
+            if rev_p[:1] == rev_s[:1]:
+                rev_s = rev_s[1:]
+                rev_p = rev_p[1:]
             else:
-                s_index += 1
-    if s_index != len(s) - 1:
-        stillMatches = False      
-    return stillMatches
+                return False
+                break
 
-s = "aaaaaa"
-p = "a*"
+    if rev_s == rev_p:
+        return True
+    else: return False
+
+
+s = "aaa"
+p = "ab*a*c*a"
+
 
 print(isMatch(s,p))
+
+
+'''
+Example 1:
+
+Input:
+s = "aa"
+p = "a"
+Output: false
+Explanation: "a" does not match the entire string "aa".
+Example 2:
+
+Input:
+s = "aa"
+p = "a*"
+Output: true
+Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes "aa".
+Example 3:
+
+Input:
+s = "ab"
+p = ".*"
+Output: true
+Explanation: ".*" means "zero or more (*) of any character (.)".
+Example 4:
+
+Input:
+s = "aab"
+p = "c*a*b"
+Output: true
+Explanation: c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches "aab".
+Example 5:
+
+Input:
+s = "mississippi"
+p = "mis*is*p*."
+Output: false
+'''

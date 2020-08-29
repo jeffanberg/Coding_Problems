@@ -32,3 +32,4 @@ However, Problem 67, is the same challenge with a triangle containing one-hundre
 it cannot be solved by brute force, and requires a clever method!
 '''
 
+#Use memoization?

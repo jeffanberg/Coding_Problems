@@ -33,3 +33,6 @@ it cannot be solved by brute force, and requires a clever method!
 '''
 
 #Use memoization?
+
+def findRoute():
+    return False

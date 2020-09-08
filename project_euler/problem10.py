@@ -22,3 +22,4 @@ def generatePrimes(num):
     return list_of_primes
 
 print(sum(generatePrimes(2000000)))
+

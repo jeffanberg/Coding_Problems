@@ -31,4 +31,21 @@ NOTE: As there are only 16384 routes, it is possible to solve this problem by tr
 However, Problem 67, is the same challenge with a triangle containing one-hundred rows; 
 it cannot be solved by brute force, and requires a clever method!
 '''
+import numpy as np
 
+array = np.array(
+[3],
+[7, 4],
+[2, 4, 6],
+[8, 5, 9, 3]
+)
+
+print(len(array))
+
+#bruteforce solution
+def findMaxPath(array):
+    currentPath = []
+    level = 0
+    while level > len(array):
+        level += 1
+    return 0

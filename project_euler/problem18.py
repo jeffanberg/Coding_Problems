@@ -75,5 +75,19 @@ def findMaxPath(triangle_array):
 
 print(findMaxPath(triangle2))
 
-# Dynamic method (hopefully)
+# Dynamic method
+
+def maxSum(triangle_array):
+    while True:
+        lastLine = triangle_array[-1]
+        tempValue = 0
+        for eachrow in range(len(lastLine) - 1):
+            tempValue = lastLine[eachrow] if lastLine[eachrow] > lastLine[eachrow + 1] else lastLine[eachrow + 1]
+            triangle_array[-2][eachrow] += tempValue
+        triangle_array.pop()
+
+        if len(triangle_array) == 1:
+            return triangle_array[0][0]
+
+print(maxSum(triangle))
 

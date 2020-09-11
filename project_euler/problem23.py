@@ -62,3 +62,14 @@ def calculateTotalSum():
 
 
 print(calculateTotalSum())
+
+
+# A clever list comprehension from the Euler forums:
+'''
+import functools, itertools
+
+def get_factors_bar_n(n): return [k for k in set(functools.reduce(list.__add__, ([i,n//i] for i in range(1, int(n**0.5)+1) if n%i==0))) if k!=n]
+abundants=[n for n in range(1,28124) if sum(get_factors_bar_n(n))>n]
+ab_sums=set([x+y for x,y in itertools.product(abundants, abundants)])
+print(sum([n for n in range(1,28124) if n not in ab_sums]))
+'''

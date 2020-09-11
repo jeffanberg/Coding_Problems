@@ -7,8 +7,8 @@ which means that 28 is a perfect number.
 A number n is called deficient if the sum of its proper divisors
 is less than n and it is called abundant if this sum exceeds n.
 
-As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16,
-the smallest number that can be written as the sum of two abundant numbers is 24.
+As 12 is the smallest abundant number, 1 + 2 + 3 + 4 + 6 = 16, the smallest
+number that can be written as the sum of two abundant numbers is 24.
 By mathematical analysis, it can be shown that all integers greater than 28123
 can be written as the sum of two abundant numbers.
 However, this upper limit cannot be reduced any further by
@@ -21,16 +21,44 @@ as the sum of two abundant numbers.
 import math
 
 
-def properDivisor(x):
-    s = 1
-    for num in range(2, int(math.sqrt(x)) + 1):
-        if x % num == 0:
-            s += num
-            s += x / num
-    return s
+def getDivisors(num):
+    if num == 1:
+        return 1
+    n = math.ceil(math.sqrt(num))
+    total = 1
+    divisor = 2
+    while (divisor < n):
+        if (num % divisor == 0):
+            total += divisor
+            total += num // divisor
+        divisor += 1
+    if n**2 == num:
+        total += n
+    return total
 
-totalsum = 0
-for i in range(1, 24):
-    totalsum += i
 
-print(totalsum)
+def listAbundantNums():
+    abundantnums = []
+    for i in range(1, 28124):
+        if getDivisors(i) > i:
+            abundantnums.append(i)
+    return abundantnums
+
+
+def calculateTotalSum():
+    total = 0
+    totalsum = [0]*28124
+    abundantnums = listAbundantNums()
+    for x in range(0, len(abundantnums)):
+        for y in range(x, len(abundantnums)):
+            sumoftwoabundants = abundantnums[x] + abundantnums[y]
+            if sumoftwoabundants <= 28123:
+                if totalsum[sumoftwoabundants] == 0:
+                    totalsum[sumoftwoabundants] = sumoftwoabundants
+    for i in range(1, len(totalsum)):
+        if totalsum[i] == 0:
+            total += i
+    return total
+
+
+print(calculateTotalSum())

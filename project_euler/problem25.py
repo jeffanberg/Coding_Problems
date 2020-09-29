@@ -23,3 +23,20 @@ to contain 1000 digits?
 '''
 
 
+def fibonacciseq():
+    twoagonum = 1
+    prevnum = 2
+    newnum = 0
+    fib_list = [1, twoagonum, prevnum]
+    while True:
+        newnum = twoagonum + prevnum
+        if len(str(newnum)) < 1000:
+            fib_list.append(newnum)
+        else:
+            fib_list.append(newnum)
+            return fib_list.index(newnum, -1) + 1
+        twoagonum = prevnum
+        prevnum = newnum
+
+
+print(fibonacciseq())

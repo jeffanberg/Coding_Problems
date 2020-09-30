@@ -21,28 +21,25 @@ recurring cycle in its decimal fraction part.
 
 # Store the remainder, if it repeats, the digits between are repeated.
 
+
 def longestRecurringCycle(n):
-    longestcycle = 0
+    longestcycle = 1
     denominator = 2
-    d = 0
+    d = 1
     while denominator < n:
-        print(f'denominator: {denominator}')
-        remainders = dict()
-        result = ''
-        currem = 1 % denominator
-        while currem != 0 and currem not in remainders:
-            print(currem)
-            print(remainders)
-            remainders[currem] = len(result)
-            currem = currem * 10
-            result = result + str(currem / denominator)
-            currem = currem % denominator
-        if currem > longestcycle:
-            longestcycle = currem
+        remainders = []
+        cycle = 1
+        rem = 1
+        while rem != 0 and rem not in remainders:
+            remainders.append(rem)
+            rem = rem * 10
+            rem = rem % denominator
+            cycle += 1
+        if cycle > longestcycle:
+            longestcycle = cycle
             d = denominator
         denominator += 1
-    print(longestcycle)
     return d
 
 
-print(longestRecurringCycle(11))
+print(longestRecurringCycle(1000))

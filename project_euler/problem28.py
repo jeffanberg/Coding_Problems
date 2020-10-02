@@ -13,5 +13,15 @@ It can be verified that the sum of the numbers on the diagonals is 101.
 What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral
 formed in the same way?
 '''
+# f(n) = 4(2n+1)^2 - 12n + f(n-1)
 
 
+def sumOfDiagonalCorners(x):
+    x = (x - 1) // 2
+    currentSum = 1
+    for n in range(x, 0, -1):
+        currentSum += 4 * ((2 * n + 1) ** 2) - 12 * n
+    return currentSum
+
+
+print(sumOfDiagonalCorners(1001))

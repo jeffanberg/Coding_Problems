@@ -19,6 +19,6 @@ def distinctPowers(a, b):
     for x in range(2, a + 1):
         for y in range(2, b + 1):
             distinctterms.add(x ** y)
-    return sorted(distinctterms)
+    return distinctterms
 
 print(len(distinctPowers(100, 100)))    

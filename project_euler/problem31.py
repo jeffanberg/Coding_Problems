@@ -8,15 +8,17 @@ It is possible to make £2 in the following way:
 1×£1 + 1×50p + 2×20p + 1×5p + 1×2p + 3×1p
 How many different ways can £2 be made using any number of coins?
 '''
-twopound = 200
 
-onepence = 1
-twopence = 2
-fivepence = 5
-tenpence = 10
-twentypence = 20
-fiftypence = 50
-pound = 100
 
-def addToTwoPounds():
-    
+def calculateWays(c, i, n):
+    if n == 0:
+        return 1
+    if n < 0:
+        return 0
+    if i <= 0 and n >= 1:
+        return 0
+    return calculateWays(c, i - 1, n) + calculateWays(c, i, n - c[i - 1])
+
+
+coins = [1, 2, 5, 10, 20, 50, 100, 200]
+print(calculateWays(coins, len(coins), 200))

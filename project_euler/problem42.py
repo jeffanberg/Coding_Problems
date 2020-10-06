@@ -14,3 +14,43 @@ Using words.txt (right click and 'Save Link/Target As...'),
 a 16K text file containing nearly two-thousand common English words,
 how many are triangle words?
 '''
+
+import os
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
+with open(os.path.join(__location__, 'p042_words.txt')) as words_file:
+    words = words_file.read().replace('"', '').split(',')
+
+
+def convertCharToInt(char):
+    stringtoint = {'A': 1, 'B': 2, 'C': 3, 'D': 4, 'E': 5, 'F': 6, 'G': 7,
+                   'H': 8, 'I': 9, 'J': 10, 'K': 11, 'L': 12, 'M': 13, 'N': 14,
+                   'O': 15, 'P': 16, 'Q': 17, 'R': 18, 'S': 19, 'T': 20,
+                   'U': 21, 'V': 22, 'W': 23, 'X': 24, 'Y': 25, 'Z': 26
+                   }
+    return stringtoint.get(char)
+
+
+def wordSum(word):
+    totalsum = 0
+    for i in word:
+        for x in i:
+            totalsum += convertCharToInt(x)
+    return totalsum
+
+
+def generateTriangleNumbers(max):
+    triangle_list = []
+    for n in range(1, max + 1):
+        triangle_list.append(int((0.5 * n) * (n + 1)))
+    return triangle_list
+
+
+triangle_numbers = generateTriangleNumbers(100)
+triangle_words = []
+for w in words:
+    if wordSum(w) in triangle_numbers:
+        triangle_words.append(w)
+print(len(triangle_words))

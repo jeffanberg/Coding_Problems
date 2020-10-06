@@ -21,4 +21,4 @@ def distinctPowers(a, b):
             distinctterms.add(x ** y)
     return distinctterms
 
-print(len(distinctPowers(100, 100)))    
+print(len(distinctPowers(100, 100)))

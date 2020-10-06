@@ -45,4 +45,7 @@ def digitCancelling():
     return curiousfractions
 
 
-print(digitCancelling())
+ans = 1
+for i in digitCancelling():
+    ans = ans * i
+print(ans)

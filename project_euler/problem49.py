@@ -46,28 +46,25 @@ def millerTest(num):
     return True
 
 
-def findPrimePermutations():
+def generatePrimes():
     prime_list = []
-    for n in range(1001, 10000):
+    for n in range(1001, 10000, 2):
         if isPrime(n):
             prime_list.append(n)
+    return prime_list
+
+
+def findPrimePermutations():
+    prime_list = generatePrimes()
     prime_sequence = []
     for x in prime_list:
-        possible_seq = [str(x)]
+        possible_seq = []
         for p in [''.join(perm) for perm in permutations(str(x))]:
             if int(p) in prime_list:
                 possible_seq.append(p)
         if len(possible_seq) >= 3:
-            diff = dict()
-            for i in range(len(possible_seq)):
-                for n in range(i + 1, len(possible_seq)):
-                    current_diff = int(possible_seq[n]) - int(possible_seq[i])
-                    print(f'current_diff: {current_diff} = {possible_seq[n]} - {possible_seq[i]}')
-                    if current_diff in diff.values():
-                        prime_sequence.append(str(list(diff.keys())[list(diff.values()).index(current_diff)]) + str(possible_seq[n]) + str(possible_seq[i]))
-                    else:
-                        diff.update({possible_seq[i]:(int(possible_seq[n]) - int(possible_seq[i]))})
-        return prime_sequence
+            # find the common difference between three
+    return prime_sequence
 
 
 print(findPrimePermutations())

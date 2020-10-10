@@ -53,7 +53,6 @@ def generatePrimes():
             prime_list.append(n)
     return prime_list
 
-
 def findPrimePermutations():
     prime_list = generatePrimes()
     prime_sequence = []
@@ -63,7 +62,20 @@ def findPrimePermutations():
             if int(p) in prime_list:
                 possible_seq.append(p)
         if len(possible_seq) >= 3:
-            # find the common difference between three
+            for i in range(0, len(possible_seq) - 1):
+                for n in range(i + 1, len(possible_seq) - 1):
+                    diff = int(possible_seq[n]) - int(possible_seq[i])
+                    if diff > 0:
+                        c = n
+                        while c != len(possible_seq):
+                            if int(possible_seq[c]) == (diff + int(possible_seq[n])):
+                                if (possible_seq[i] + possible_seq[n] +
+                                    possible_seq[c]) not in prime_sequence:
+                                    prime_sequence.append(possible_seq[i] +
+                                                          possible_seq[n] +
+                                                          possible_seq[c])
+                                    break
+                            c += 1
     return prime_sequence
 
 

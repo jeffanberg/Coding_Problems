@@ -1,4 +1,4 @@
-'''
+    '''
 The nth term of the sequence of triangle numbers is given by,
 t_n = ½n(n+1); so the first ten triangle numbers are:
 

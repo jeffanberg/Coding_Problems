@@ -13,6 +13,8 @@ and in each hand there is a clear winner.
 How many hands does Player 1 win?
 '''
 import os
+import time
+start = time.time()
 
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -73,3 +75,6 @@ for hand in poker_hands:
     if evaluateHand(hand):
         count += 1
 print(count)
+
+end = time.time()
+print("Time", end - start)

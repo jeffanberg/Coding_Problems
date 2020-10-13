@@ -23,7 +23,7 @@ def generatePentagonals(max):
 
 
 def findDistance():
-    pentagonal_list = generatePentagonals(10000)
+    pentagonal_list = generatePentagonals(3000)
     for i in range(0, len(pentagonal_list)):
         current = pentagonal_list[i]
         for n in range(i + 1, len(pentagonal_list)):

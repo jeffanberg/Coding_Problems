@@ -14,6 +14,10 @@ It turns out that the conjecture was false.
 What is the smallest odd composite that cannot be written as
 the sum of a prime and twice a square?
 '''
+
+
+# Code from:
+# http://louistiao.me/posts/project-euler/problem-46-goldbachs-other-conjecture/
 from collections import defaultdict
 from itertools import count
 

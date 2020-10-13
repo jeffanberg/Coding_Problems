@@ -1,0 +1,48 @@
+*2*3*3
+*2*3*3
+323333
+424343
+525353
+626363
+*2*3*3
+*2*3*3
+
+
+'''
+def replaceDigits(num):
+    num_string = str(num)
+    ans = []
+    replacements = []
+    for x in range(0, len(num_string)):
+        if x == 0:
+            for i in range(0, len(num_string)):
+                if i == len(num_string) - 1:
+                    break
+                for r in range(0, 10):
+                    temp = list(num_string)
+                    temp[i] = str(r)
+                    replace_num = int(''.join(temp))
+                    if replace_num > 10 and len(str(replace_num)) == \
+                            len(num_string) and replace_num not in replacements:
+                        replacements.append(replace_num)
+                if replacements not in ans:
+                    ans.append(replacements)
+                replacements = []
+        else:
+            for i in range(0, len(num_string)):
+                if i == len(num_string) - 1:
+                    break
+                for r in range(0, 10):
+                    temp = list(num_string)
+                    if i - 1 >= 0:
+                        temp[i - 1] = str(r)
+                    temp[i] = str(r)
+                    replace_num = int(''.join(temp))
+                    if replace_num > 10 and len(str(replace_num)) == \
+                            len(num_string) and replace_num not in replacements:
+                        replacements.append(replace_num)
+                if replacements not in ans:
+                    ans.append(replacements)
+                replacements = []
+    return ans
+'''

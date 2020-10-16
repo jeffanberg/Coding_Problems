@@ -26,7 +26,8 @@ codes, and the knowledge that the plain text must contain common English words,
 decrypt the message and find the sum of the ASCII values in the original text.
 '''
 import os
-from itertools import combinations
+from itertools import combinations_with_replacement
+from itertools import count
 
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -39,20 +40,26 @@ def xor(ascii, key):
     return ascii ^ key
 
 
-def asciiToText(ascii):
-    return chr(ascii)
-
-
-def textToAscii(char):
-    return ord(char)
-
-
-for x in combinations(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
+for x in combinations_with_replacement(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
                        'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
                        'w', 'x', 'y', 'z'], 3):
     message = []
-    for y in range(0, 2):
-        for c in cipher_text:
-            key = ord(x[y])
+    y = 0
+    for c in cipher_text:
+        if y == 3:
+            y = 0
+        key = ord(x[y])
         message.append(xor(int(c), key))
-    print(message)
+        y += 1
+    decrypted_message = ''
+    for char in message:
+        decrypted_message = decrypted_message + chr(char)
+    if decrypted_message.count('the') > 0 and decrypted_message.count('and') > 0:
+        print(x)
+        print(decrypted_message)
+        
+        '''messages_file = open("messages.txt","a")
+        messages_file.write(str(x))
+        messages_file.write('\n')
+        messages_file.write(decrypted_message)
+        messages_file.write('\n')'''

@@ -25,9 +25,10 @@ case characters. Using p059_cipher.txt, a file containing the encrypted ASCII
 codes, and the knowledge that the plain text must contain common English words,
 decrypt the message and find the sum of the ASCII values in the original text.
 '''
+
 import os
-from itertools import combinations_with_replacement
-from itertools import count
+import string
+from itertools import permutations
 
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -36,30 +37,24 @@ with open(os.path.join(__location__, 'p059_cipher.txt')) as cipher_file:
     cipher_text = cipher_file.read().split(',')
 
 
-def xor(ascii, key):
-    return ascii ^ key
+def returnSumOfDecryptedAscii():
+    for x in permutations(string.ascii_lowercase, 3):
+        message = []
+        i = 0
+        for c in cipher_text:
+            if i == 3:
+                i = 0
+            key = ord(x[i])
+            message.append(int(c) ^ key)
+            i += 1
+        decrypted_message = ''
+        for char in message:
+            decrypted_message = decrypted_message + chr(char)
+            if decrypted_message.count('the') > 2 \
+                    and decrypted_message.count('that') > 2:
+                print(x)
+                print(decrypted_message)
+                return sum(message)
 
 
-for x in combinations_with_replacement(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-                       'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-                       'w', 'x', 'y', 'z'], 3):
-    message = []
-    y = 0
-    for c in cipher_text:
-        if y == 3:
-            y = 0
-        key = ord(x[y])
-        message.append(xor(int(c), key))
-        y += 1
-    decrypted_message = ''
-    for char in message:
-        decrypted_message = decrypted_message + chr(char)
-    if decrypted_message.count('the') > 0 and decrypted_message.count('and') > 0:
-        print(x)
-        print(decrypted_message)
-        
-        '''messages_file = open("messages.txt","a")
-        messages_file.write(str(x))
-        messages_file.write('\n')
-        messages_file.write(decrypted_message)
-        messages_file.write('\n')'''
+print(returnSumOfDecryptedAscii())

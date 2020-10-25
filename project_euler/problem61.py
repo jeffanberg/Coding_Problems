@@ -29,8 +29,9 @@ from math import sqrt
 
 triangles, squares, pentagonals, hexagonals, heptagonals, octagonals = \
     set(), set(), set(), set(), set(), set()
+
 # Generate four-digit figurate numbers
-for n in range(1000,10000):
+for n in range(1000, 10000):
     if sqrt(8 * n + 1) % 1 == 0:
         triangles.add(n)
     if sqrt(n) % 1 == 0:
@@ -45,9 +46,58 @@ for n in range(1000,10000):
         octagonals.add(n)
 
 
-print(sorted(triangles))
-print(sorted(squares))
-print(sorted(pentagonals))
-print(sorted(hexagonals))
-print(sorted(heptagonals))
-print(sorted(octagonals))
+remaining_figurates = heptagonals.union(triangles, squares, pentagonals, hexagonals)
+
+
+def findCyclicSet():
+    for each in octagonals:
+        next_num = str(each)[2:]
+        a = 0
+        while a < 100:
+            if a < 10:
+                second_num = next_num + '0' + str(a)
+            else:
+                second_num = next_num + str(a)
+            if int(second_num) in remaining_figurates:
+                b = 0
+                while b < 100:
+                    if b < 10:
+                        third_num = second_num[2:] + '0' + str(b)
+                    else:
+                        third_num = second_num[2:] + str(b)
+                    if int(third_num) in remaining_figurates:
+                        c = 0
+                        while c < 100:
+                            if c < 10:
+                                fourth_num = third_num[2:] + '0' + str(c)
+                            else:
+                                fourth_num = third_num[2:] + str(c)
+                            if int(fourth_num) in remaining_figurates:
+                                d = 0
+                                while d < 100:
+                                    if d < 10:
+                                        fifth_num = fourth_num[2:] + '0' + str(d)
+                                    else:
+                                        fifth_num = fourth_num[2:] + str(d)
+                                    if int(fifth_num) in remaining_figurates:
+                                        e = 0
+                                        while e < 100:
+                                            if e < 10:
+                                                sixth_num = fifth_num[2:] + '0' + str(e)
+                                            else:
+                                                sixth_num = fifth_num[2:] + str(e)
+                                            if int(sixth_num) in remaining_figurates:
+                                                if str(each)[:2] == sixth_num[2:]:
+                                                    return [each, int(second_num),
+                                                            int(third_num), int(fourth_num),
+                                                            int(fifth_num), int(sixth_num)]
+                                            e += 1
+                                    d += 1
+                            c += 1
+                    b += 1
+            a += 1
+
+
+ans = findCyclicSet()
+print(ans)
+print(sum(ans))

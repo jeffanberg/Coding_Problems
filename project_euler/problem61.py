@@ -24,3 +24,30 @@ Find the sum of the only ordered set of six cyclic 4-digit numbers for which
 each polygonal type: triangle, square, pentagonal, hexagonal, heptagonal,
 and octagonal, is represented by a different number in the set.
 '''
+from math import sqrt
+
+
+triangles, squares, pentagonals, hexagonals, heptagonals, octagonals = \
+    set(), set(), set(), set(), set(), set()
+# Generate four-digit figurate numbers
+for n in range(1000,10000):
+    if sqrt(8 * n + 1) % 1 == 0:
+        triangles.add(n)
+    if sqrt(n) % 1 == 0:
+        squares.add(n)
+    if (sqrt(24 * n + 1) + 1) / 6 % 1 == 0:
+        pentagonals.add(n)
+    if (sqrt(8 * n + 1) + 1) / 4 % 1 == 0:
+        hexagonals.add(n)
+    if (sqrt(40 * n + 9) + 3) / 10 % 1 == 0:
+        heptagonals.add(n)
+    if (sqrt(3 * n + 1) + 1) / 3 % 1 == 0:
+        octagonals.add(n)
+
+
+print(sorted(triangles))
+print(sorted(squares))
+print(sorted(pentagonals))
+print(sorted(hexagonals))
+print(sorted(heptagonals))
+print(sorted(octagonals))

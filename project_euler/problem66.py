@@ -27,7 +27,7 @@ for which the largest value of x is obtained.
 from math import sqrt
 
 
-def findLargestX(limit):
+def bruteForceFindLargestX(limit):
     largest_x = 0
     for d in range(2, limit + 1):
         if sqrt(d) % 1 == 0:
@@ -47,4 +47,4 @@ def findLargestX(limit):
     return largest_x
 
 
-print(findLargestX(1000))
+print(bruteForceFindLargestX(7))

@@ -30,3 +30,20 @@ def findOddPeriods(limit):
 
 
 print(findOddPeriods(10000))
+
+
+# Previous attempt:
+'''
+def continuedFraction(num):
+    notation = []
+    r = num
+    i = int(num)
+    limit = i
+    fractional = fractions.Fraction(r - i).limit_denominator()
+    while fractional != 0 or len(notation) == 0:
+        notation.append(i)
+        r = (1 / fractional)
+        i = (limit + i) // r * r - i
+        fractional = fractions.Fraction(r - i).limit_denominator()
+    return notation
+'''

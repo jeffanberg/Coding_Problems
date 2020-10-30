@@ -24,20 +24,24 @@ the largest x is obtained when D=5.
 Find the value of D ≤ 1000 in minimal solutions of x
 for which the largest value of x is obtained.
 '''
-from math import sqrt
 from fractions import Fraction
+from decimal import Decimal
+from decimal import getcontext
+from math import sqrt
+
+getcontext().prec = 80
 
 
 def returnPeriods(num, limit):
     periods = []
-    r = sqrt(num)
+    r = Decimal(num).sqrt()
     i = int(r)
-    fractional = r - i
+    fractional = Decimal(r - i)
     for _ in range(0, limit):
         periods.append(i)
-        r = 1 / fractional
+        r = Decimal(1 / fractional)
         i = int(r)
-        fractional = r - i
+        fractional = Decimal(r - i)
     return periods
 
 
@@ -64,51 +68,24 @@ def returnConvergent(num, convergent):
 
 def findLargestX(limit):
     largest_x = 0
+    res = 0
     for d in range(2, limit + 1):
         if sqrt(d) % 1 == 0:
             continue
         i = 1
         ans = 0
         while ans != 1:
-            if d == 61:
-                print(f'd: {d} i: {i}')
             currentConvergent = returnConvergent(d, i)
             numerator = currentConvergent.numerator
             denominator = currentConvergent.denominator
             if (numerator ** 2) - (d * (denominator ** 2)) == 1:
                 if numerator > largest_x:
                     largest_x = numerator
-                print(f'd: {d} x: {numerator}')
+                    res = d
                 ans = 1
             else:
                 i += 1
-    return largest_x
-
-
-# print(returnConvergent(61, 10))
-print(findLargestX(1000))
-
-
-'''
-def bruteForceFindLargestX(limit):
-    largest_x = 0
-    for d in range(2, limit + 1):
-        if sqrt(d) % 1 == 0:
-            continue
-        x = 2
-        ans = 0
-        while ans != 1:
-            y = 1
-            while d * (y**2) < x**2:
-                if (x**2) - (d * (y**2)) == 1:
-                    if x > largest_x:
-                        largest_x = x
-                    print(f'd: {d} x: {x}')
-                    ans = 1
-                y += 1
-            x += 1
-    return largest_x
+    return res
 
 
 print(findLargestX(1000))
-'''

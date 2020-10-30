@@ -44,15 +44,21 @@ def returnPeriods(num, limit):
 def returnConvergent(num, convergent):
     periods = returnPeriods(num, convergent)
     twoago_convergent = Fraction(periods[0], 1)
+    if convergent == 1:
+        return twoago_convergent
     previous_convergent = Fraction(periods[1] * periods[0] + 1, periods[1])
-    for n in range(1, convergent):
-        current_convergent = Fraction(periods[n]
-                                      * previous_convergent.numerator
-                                      + twoago_convergent.numerator, periods[n]
-                                      * previous_convergent.denominator
-                                      + twoago_convergent.denominator)
-        twoago_convergent = previous_convergent
-        previous_convergent = current_convergent
+    if convergent == 2:
+        return previous_convergent
+    else:
+        for n in range(2, convergent):
+            current_convergent = Fraction(periods[n]
+                                          * previous_convergent.numerator
+                                          + twoago_convergent.numerator,
+                                          periods[n]
+                                          * previous_convergent.denominator
+                                          + twoago_convergent.denominator)
+            twoago_convergent = previous_convergent
+            previous_convergent = current_convergent
     return current_convergent
 
 
@@ -61,14 +67,15 @@ def findLargestX(limit):
     for d in range(2, limit + 1):
         if sqrt(d) % 1 == 0:
             continue
-        i = 2
+        i = 1
         ans = 0
         while ans != 1:
-            print(f'd: {d} i: {i}')
+            if d == 61:
+                print(f'd: {d} i: {i}')
             currentConvergent = returnConvergent(d, i)
             numerator = currentConvergent.numerator
             denominator = currentConvergent.denominator
-            if (numerator ** 2) - ((7 * denominator) ** 2) == 1:
+            if (numerator ** 2) - (d * (denominator ** 2)) == 1:
                 if numerator > largest_x:
                     largest_x = numerator
                 print(f'd: {d} x: {numerator}')
@@ -78,7 +85,8 @@ def findLargestX(limit):
     return largest_x
 
 
-print(findLargestX(7))
+# print(returnConvergent(61, 10))
+print(findLargestX(1000))
 
 
 '''

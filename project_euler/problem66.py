@@ -25,8 +25,63 @@ Find the value of D ≤ 1000 in minimal solutions of x
 for which the largest value of x is obtained.
 '''
 from math import sqrt
+from fractions import Fraction
 
 
+def returnPeriods(num, limit):
+    periods = []
+    r = sqrt(num)
+    i = int(r)
+    fractional = r - i
+    for _ in range(0, limit):
+        periods.append(i)
+        r = 1 / fractional
+        i = int(r)
+        fractional = r - i
+    return periods
+
+
+def returnConvergent(num, convergent):
+    periods = returnPeriods(num, convergent)
+    twoago_convergent = Fraction(periods[0], 1)
+    previous_convergent = Fraction(periods[1] * periods[0] + 1, periods[1])
+    for n in range(1, convergent):
+        current_convergent = Fraction(periods[n]
+                                      * previous_convergent.numerator
+                                      + twoago_convergent.numerator, periods[n]
+                                      * previous_convergent.denominator
+                                      + twoago_convergent.denominator)
+        twoago_convergent = previous_convergent
+        previous_convergent = current_convergent
+    return current_convergent
+
+
+def findLargestX(limit):
+    largest_x = 0
+    for d in range(2, limit + 1):
+        if sqrt(d) % 1 == 0:
+            continue
+        i = 2
+        ans = 0
+        while ans != 1:
+            print(f'd: {d} i: {i}')
+            currentConvergent = returnConvergent(d, i)
+            numerator = currentConvergent.numerator
+            denominator = currentConvergent.denominator
+            if (numerator ** 2) - ((7 * denominator) ** 2) == 1:
+                if numerator > largest_x:
+                    largest_x = numerator
+                print(f'd: {d} x: {numerator}')
+                ans = 1
+            else:
+                i += 1
+    return largest_x
+
+
+print(findLargestX(7))
+
+
+'''
 def bruteForceFindLargestX(limit):
     largest_x = 0
     for d in range(2, limit + 1):
@@ -47,4 +102,5 @@ def bruteForceFindLargestX(limit):
     return largest_x
 
 
-print(bruteForceFindLargestX(7))
+print(findLargestX(1000))
+'''

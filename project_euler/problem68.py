@@ -87,4 +87,5 @@ def create5gon():
 ans = create5gon()
 print(ans)
 print(len(ans))
-print(max(ans))
+longest = max(ans)
+print(''.join([i for i in longest if i.isdigit()]))

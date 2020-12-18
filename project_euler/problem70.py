@@ -10,3 +10,32 @@ Interestingly, φ(87109)=79180, and it can be seen that
 
 Find the value of n, 1 < n < 107, for which φ(n) is a permutation of n
 and the ratio n/φ(n) produces a minimum. '''
+
+
+def findTotientMinimum(limit):
+    minimum = 10000
+    ans = 0
+    for i in range(2, limit):
+        if set(str(i)) == set(str(findTotientProduct(i))):
+            e = i / findTotientProduct(i)
+            if e < minimum:
+                minimum = e
+                ans = i
+    return ans
+
+
+def findTotientProduct(num):
+    result = num
+    p = 2
+    while p * p <= num:
+        if num % p == 0:
+            while num % p == 0:
+                num = num // p
+            result = result * (1.0 - (1.0 / float(p)))
+        p = p + 1
+    if num > 1:
+        result = result * (1.0 - (1.0 / float(num)))
+    return int(result)
+
+
+print(findTotientMinimum(1000000))

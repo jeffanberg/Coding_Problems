@@ -28,18 +28,25 @@ def returnEuler(limit):
     return periods
 
 
+
 def returnConvergent(num, convergent):
     periods = returnPeriods(num, convergent)
     twoago_convergent = Fraction(periods[0], 1)
+    if convergent == 1:
+        return twoago_convergent
     previous_convergent = Fraction(periods[1] * periods[0] + 1, periods[1])
-    for n in range(2, convergent):
-        current_convergent = Fraction(periods[n]
-                                      * previous_convergent.numerator
-                                      + twoago_convergent.numerator, periods[n]
-                                      * previous_convergent.denominator
-                                      + twoago_convergent.denominator)
-        twoago_convergent = previous_convergent
-        previous_convergent = current_convergent
+    if convergent == 2:
+        return previous_convergent
+    else:
+        for n in range(2, convergent):
+            current_convergent = Fraction(periods[n]
+                                          * previous_convergent.numerator
+                                          + twoago_convergent.numerator,
+                                          periods[n]
+                                          * previous_convergent.denominator
+                                          + twoago_convergent.denominator)
+            twoago_convergent = previous_convergent
+            previous_convergent = current_convergent
     return current_convergent
 
 

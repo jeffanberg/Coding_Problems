@@ -1,7 +1,6 @@
-''' Project Euler Problem 83
-Find the minimal path sum from the top left to the bottom right by moving left,
-right, up, and down in matrix.txt (right click and "Save Link/Target As..."),
-a 31K text file containing an 80 by 80 matrix.
+''' Project Euler Problem 82
+by starting in any cell in the left column and finishing in any cell
+in the right column, and only moving up, down, and right.
 '''
 
 import os
@@ -75,42 +74,52 @@ class Matrix:
         if location.y < self.height - 1:
             neighbors.append(Location(location.x, location.y + 1))
 
-        if location.x - 1 > -1:
-            neighbors.append(Location(location.x - 1, location.y))
-
         if location.y - 1 > -1:
             neighbors.append(Location(location.x, location.y - 1))
 
         return neighbors
 
-    def find_path(self, start, end):
-        frontier = PriorityQueue()
-        frontier.put(start, self.get(start))
-        came_from = dict()
-        cost_so_far = dict()
-        came_from[start] = None
-        cost_so_far[start] = self.get(start)
+    def find_path(self):
+        minimum_cost = 0
+        minimum_path = []
+        minimum_start = Location(0, 0)
+        min_camefrom = dict()
+        for y in range(0, 80):
+            start = Location(0, y)
+            frontier = PriorityQueue()
+            frontier.put(start, self.get(start))
+            came_from = dict()
+            cost_so_far = dict()
+            came_from[start] = None
+            cost_so_far[start] = self.get(start)
 
-        while not frontier.empty():
-            current = frontier.get()
+            while not frontier.empty():
+                current = frontier.get()
 
-            if current == end:
-                break
+                if current.x == 79:
+                    end = current
+                    break
 
-            for next in self.neighbors(current):
-                new_cost = cost_so_far[current] + self.get(next)
-                if next not in cost_so_far or new_cost < cost_so_far[next]:
-                    cost_so_far[next] = new_cost
-                    priority = new_cost
-                    frontier.put(next, priority)
-                    came_from[next] = current
+                for next in self.neighbors(current):
+                    new_cost = cost_so_far[current] + self.get(next)
+                    if next not in cost_so_far or new_cost < cost_so_far[next]:
+                        cost_so_far[next] = new_cost
+                        priority = new_cost
+                        frontier.put(next, priority)
+                        came_from[next] = current
 
-        path = [end]
-        while path[-1] != start:
-            path.append(came_from[path[-1]])
+            if minimum_cost == 0 or cost_so_far[end] < minimum_cost:
+                minimum_cost = cost_so_far[end]
+                minimum_path = [end]
+                minimum_start = start
+                min_camefrom = came_from
+
+        path = minimum_path
+        while path[-1] != minimum_start:
+            path.append(min_camefrom[path[-1]])
             path.reverse()
 
-        return path, cost_so_far[end]
+        return path, minimum_cost
 
     def print_path(self, path):
         for y in range(self.height):
@@ -124,6 +133,6 @@ class Matrix:
             print(line)
 
 
-path, answer = Matrix.find_path(Matrix(), Location(0, 0), Location(79, 79))
+path, answer = Matrix.find_path(Matrix())
 Matrix.print_path(Matrix(), path)
 print(answer)
